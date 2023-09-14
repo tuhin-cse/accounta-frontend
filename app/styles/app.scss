@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.sidebar {
+  @apply w-0 overflow-hidden md:w-[250px] h-screen fixed left-0 top-0 bg-[#F1F2F7] transition-all duration-300;
+
+  .title {
+    @apply h-[70px] border-b border-[#C8CBD97F] flex justify-center items-center text-gray-600 font-semibold;
+  }
+}
+
+.header {
+  @apply fixed left-0 md:left-[250px] top-0 right-0 h-[70px] border-b border-[#C8CBD97F] transition-all duration-300;
+}
+
+.content {
+  @apply pt-[70px] md:pl-[250px] transition-all duration-300;
+}
