@@ -64,3 +64,8 @@
 .content {
   @apply pt-[70px] md:pl-[250px] transition-all duration-300;
 }
+
+
+.ant-notification-notice-message {
+  margin-bottom: 0!important;
+}

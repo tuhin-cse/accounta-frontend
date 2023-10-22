@@ -1,11 +1,24 @@
 "use client"
 
-import {Form} from "antd";
+import {Form, notification} from "antd";
 import FormInput from "../../components/form/input";
 import Button from "../../components/common/button";
 import FormPassword from "../../components/form/password";
+import {postLogin} from "../../helpers/backend";
 
 const Login = () => {
+
+    const handleSubmit = async (values) => {
+        const {error, msg, data} = await postLogin(values)
+        if(error) {
+            notification.error({
+                message: msg
+            })
+        } else {
+
+        }
+    }
+
     return (
         <div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center items-center sm:py-12">
             <div className="relative p-4 bg-white shadow-lg sm:rounded sm:p-8 w-[90vw] sm:w-[450px]">
@@ -14,9 +27,7 @@ const Login = () => {
                 </div>
                 <div className="divide-y divide-gray-200">
                     <div className="text-base text-gray-700 sm:text-lg sm:leading-7">
-                        <Form onFinish={values => {
-                            console.log(values)
-                        }}>
+                        <Form onFinish={handleSubmit}>
                             <FormInput
                                 label="Email"
                                 name="email"
