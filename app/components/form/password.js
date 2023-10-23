@@ -3,6 +3,7 @@
 import {Form} from 'antd';
 import {useState} from "react";
 import {BiLockAlt, BiLockOpenAlt} from "react-icons/bi";
+import {FiEye, FiEyeOff} from "react-icons/fi";
 
 const FormPassword = ({name, label, required, placeholder, min = 6, initialValue,  confirm = false, noCurrent = false}) => {
     const t = d => d
@@ -36,13 +37,13 @@ const FormPassword = ({name, label, required, placeholder, min = 6, initialValue
     return (
         <Form.Item
             name={name}
-            className="mb-8"
+            label={label}
+            className="mb-4"
             rules={rules}
             initialValue={initialValue || ''}
         >
             <PasswordInputField
-                className="form-control"
-                label={label}
+                placeholder={placeholder}
             />
         </Form.Item>
     )
@@ -52,34 +53,22 @@ export default FormPassword
 
 
 
-const PasswordInputField = ({value, onChange, label, ...props}) => {
+const PasswordInputField = ({value, onChange, placeholder, ...props}) => {
     const [visible, setVisible] = useState(false)
     return (
         <div className="relative">
             <input
                 value={value}
                 onChange={onChange}
-                id={'form-input-' + label?.toLowerCase()?.replaceAll(' ', '-')}
                 {...props}
                 type={visible ? 'text' : 'password'}
-                className="peer placeholder-transparent h-10 pr-4 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
-                placeholder={label}/>
-            <label
-                htmlFor={'form-input-' + label?.toLowerCase()?.replaceAll(' ', '-')}
-                className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">
-                {label}
-            </label>
+                className="form-input !pr-8"
+                placeholder={placeholder}/>
             <div
-                style={{
-                    position: "absolute",
-                    right: "4px",
-                    bottom: "8px",
-                    color: "#6c757d"
-                }}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
                 role="button"
                 onClick={() => setVisible(!visible)}>
-                {visible ? <BiLockOpenAlt size={18}/> : <BiLockAlt size={18}/>}
-
+                {visible ? <FiEye className="text-gray-700"/> : <FiEyeOff className="text-gray-700"/>}
             </div>
         </div>
     )

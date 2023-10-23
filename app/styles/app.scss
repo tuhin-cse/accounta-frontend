@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  font-family: Inter, sans-serif;
+}
+
 
 .sidebar {
   @apply w-0 overflow-hidden md:w-[250px] h-screen fixed left-0 top-0 bg-[#F1F2F7] transition-all duration-300;
@@ -68,4 +72,37 @@
 
 .ant-notification-notice-message {
   margin-bottom: 0!important;
+}
+
+
+.ant-form-item-label {
+  label {
+    @apply font-inter text-sm font-medium text-gray-700 #{!important};
+  }
+
+}
+
+
+
+.ant-form-item-label > label.ant-form-item-required:not(.ant-form-item-required-mark-optional):before {
+  display: none!important;
+}
+
+.ant-form-item-label > label.ant-form-item-required:not(.ant-form-item-required-mark-optional):after {
+  display: inline-block;
+  margin-left: 4px;
+  margin-top: 2px;
+  color: #ff4d4f;
+  font-size: 14px;
+  font-family: Inter, sans-serif;
+  line-height: 1;
+  content: "*";
+  visibility: visible;
+}
+.form-input {
+    @apply font-inter block w-full outline-0 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 px-3 py-2;
+}
+
+.ant-form-item-explain-error {
+    @apply font-inter text-xs text-red-500 my-1;
 }

@@ -1,3 +1,4 @@
+import '@fontsource/inter'
 import "./styles/app.scss"
 
 export const metadata = {
