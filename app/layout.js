@@ -1,5 +1,6 @@
 import '@fontsource/inter'
 import "./styles/app.scss"
+import MainLoader from "./components/common/loader";
 
 export const metadata = {
   title: 'AccountA',
@@ -9,7 +10,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
  return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+      <MainLoader/>
+      {children}
+      </body>
     </html>
   )
 }

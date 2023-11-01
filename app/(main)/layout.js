@@ -4,18 +4,49 @@ import Sidebar from "../components/layout/sidebar";
 import Header from "../components/layout/header";
 import {FaCartPlus, FaHome, FaPrint, FaShoppingBag, FaUniversity, FaWallet, FaWrench} from "react-icons/fa";
 import {FaBoxArchive} from "react-icons/fa6";
+import {useEffect, useState} from "react";
+import {fetchUser} from "../helpers/backend";
+import MainLoader, {hideLoader} from "../components/common/loader";
+import {useRouter} from "next/navigation";
 
 const Layout = ({children}) => {
+    const router = useRouter()
+    const [user, setUser] = useState(null)
+
+    useEffect(() => {
+        fetchUser().then(({error, data}) => {
+            if(error === false) {
+                hideLoader()
+                setUser(data)
+            } else {
+                router.push('/login')
+            }
+        })
+    }, [])
+
+
+    if(!user) {
+        return (
+            <>
+                <MainLoader/>
+            </>
+        )
+    }
+
     return (
-        <>
-            <Sidebar title="AccountA" menu={menu}/>
-            <Header title="AccountA"/>
-            <div className="content">
-                <div className="p-6">
-                    {children}
-                </div>
-            </div>
-        </>
+        <div className="min-h-screen bg-gray-100">
+            {!!user && (
+                <>
+                    <Sidebar title="AccountA" menu={menu}/>
+                    <Header title="AccountA"/>
+                    <div className="content">
+                        <div className="p-6">
+                            {children}
+                        </div>
+                    </div>
+                </>
+            )}
+        </div>
     )
 }
 

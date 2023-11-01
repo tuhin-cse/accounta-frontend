@@ -15,36 +15,47 @@ axiosApi.interceptors.response.use(
     error => Promise.reject(error)
 )
 
-export async function get(url, data, config = {}) {
+const updateRequest = (url, data) => {
     axiosApi.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem('token') ?? ''}`
-    const lang = localStorage.getItem('language')
-    return await axiosApi.get(url, {...config, params: {...data, lang}}).then(response => response.data)
+    let variables = url.match(/:[a-zA-Z]+/g)
+    if (variables?.length) {
+        variables.forEach(variable => {
+            url = url.replace(variable, data[variable.replace(':', '')])
+            delete data[variable.replace(':', '')]
+        })
+    }
+    return {url, data}
+}
+
+export async function get(url, data, config = {}) {
+    let {url: newUrl, data: newData} = updateRequest(url, data)
+    return await axiosApi.get(newUrl, {...config, params: newData}).then(response => response.data)
 }
 
 export async function post(url, data, config = {}) {
-    axiosApi.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem('token') ?? ''}`
+   let {url: newUrl, data: newData} = updateRequest(url, data)
     return axiosApi
-        .post(url, data, {...config})
+        .post(newUrl, newData, {...config})
         .then(response => response.data)
 }
 
 export async function put(url, data, config = {}) {
-    axiosApi.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem('token') ?? ''}`
+   let {url: newUrl, data: newData} = updateRequest(url, data)
     return axiosApi
-        .put(url, {...data}, {...config})
+        .put(newUrl, newData, {...config})
         .then(response => response.data)
 }
 
 export async function patch(url, data, config = {}) {
-    axiosApi.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem('token') ?? ''}`
+    let {url: newUrl, data: newData} = updateRequest(url, data)
     return axiosApi
-        .patch(url, {...data}, {...config})
+        .patch(newUrl, newData, {...config})
         .then(response => response.data)
 }
 
 export async function del(url, data, config = {}) {
-    axiosApi.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem('token') ?? ''}`
+    let {url: newUrl, data: newData} = updateRequest(url, data)
     return await axiosApi
-        .delete(url, {...config, params: data})
+        .delete(newUrl, {...config, params: newData})
         .then(response => response.data)
 }
