@@ -1,7 +1,14 @@
 "use client"
 
 import {useAction, useFetch} from "../../helpers/hooks";
-import {delCategory, fetchCategories, fetchCategoryElements, patchCategory, postCategory} from "../../helpers/backend";
+import {
+    delCategory, delProduct,
+    fetchCategories,
+    fetchCategoryElements,
+    fetchProducts,
+    patchCategory, patchProduct,
+    postCategory, postProduct
+} from "../../helpers/backend";
 import PageTitle from "../../components/common/title";
 import Table from "../../components/common/table";
 import Button from "../../components/common/button";
@@ -10,18 +17,19 @@ import {useState} from "react";
 import FormInput, {HiddenInput} from "../../components/form/input";
 import FormSelect from "../../components/form/select";
 
-const Categories = () => {
+const Products = () => {
     const [form] = Form.useForm()
     const [open, setOpen] = useState(false)
-    const [data, getData, {loading}] = useFetch(fetchCategories)
+    const [data, getData, {loading}] = useFetch(fetchProducts)
     const [elements, getElements] = useFetch(fetchCategoryElements, {}, false)
     const columns = [
         {text: "Name", dataField: "name"},
-        {text: "Parent", dataField: "parent", formatter: d => d?.name},
+        {text: "Category", dataField: "category", formatter: d => d?.name},
+        {text: "Cost", dataField: "cost"},
+        {text: "Price", dataField: "price"},
     ]
 
     const merge = (acc, category, spacer = '') => {
-        if (form.getFieldValue('_id') === category._id) return acc
         acc.push({
             value: category._id,
             label: `${spacer}${(category.name)}`
@@ -38,7 +46,7 @@ const Categories = () => {
 
     return (
         <>
-            <PageTitle title="Categories"/>
+            <PageTitle title="Products"/>
             <Table
                 columns={columns}
                 data={data}
@@ -57,11 +65,11 @@ const Categories = () => {
                     form.resetFields()
                     form.setFieldsValue({
                         ...values,
-                        parent: values?.parent?._id,
+                        category: values?.category?._id,
                     })
                     setOpen(true)
                 }}
-                onDelete={delCategory}
+                onDelete={delProduct}
                 indexed
                 pagination
             />
@@ -69,21 +77,37 @@ const Categories = () => {
             <Modal
                 open={open}
                 onCancel={() => setOpen(false)}
-                title="Category Details"
+                title="Product Details"
+                width={800}
                 footer={null}>
                 <Form
                     form={form}
                     layout="vertical"
                     onFinish={(values) => {
                         values.parent = values.parent || undefined
-                        return useAction(values?.uid ? patchCategory : postCategory, values, () => {
+                        return useAction(values?.uid ? patchProduct : postProduct, values, () => {
                             setOpen(false)
                             getData()
                         })
                     }}>
                     <HiddenInput name="uid"/>
-                    <FormInput label="Name" name="name" required/>
-                    <FormSelect label="Parent" name="parent" options={options}/>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
+                        <FormInput label="Name" name="name" required/>
+                        <FormSelect label="Category" name="category" options={options} required/>
+                        <FormInput label="Price" name="price" required/>
+                        <FormInput label="Cost" name="cost" required/>
+                        <FormInput label="Description" name="description" textArea required/>
+                        <FormSelect
+                            label="Type"
+                            name="type"
+                            initialValue="product"
+                            options={['Product', 'Service']?.map(d => ({
+                                label: d,
+                                value: d.toLowerCase()
+                            }))}
+                            required/>
+                    </div>
+
                     <Button className="mt-2.5">Submit</Button>
                 </Form>
 
@@ -93,4 +117,4 @@ const Categories = () => {
     )
 }
 
-export default Categories
+export default Products

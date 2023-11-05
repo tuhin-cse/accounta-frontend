@@ -1,6 +1,6 @@
 import {Form} from 'antd';
 
-const FormInput = ({label, name, required, isEmail, initialValue, rules = [], ...props}) => {
+const FormInput = ({label, name, required, isEmail, initialValue, rules = [], textArea}) => {
     let initRules = [
         {
             required: required,
@@ -19,9 +19,22 @@ const FormInput = ({label, name, required, isEmail, initialValue, rules = [], ..
             className="mb-4"
             initialValue={initialValue || ''}
         >
-            <input className="form-input"/>
+            {textArea ? <textarea className="form-input"/> : <input className="form-input"/>}
         </Form.Item>
     )
 }
 
 export default FormInput;
+
+
+export const HiddenInput = ({name, initialValue,}) => {
+    return (
+        <Form.Item
+            name={name}
+            initialValue={initialValue || ''}
+            hidden
+        >
+            <input className="form-input"/>
+        </Form.Item>
+    )
+}

@@ -18,7 +18,6 @@ const Table = ({
                    pagination = false,
                    shadow = true,
                    title,
-                   permission,
                    noHeader = false,
                    afterSearch,
                    onSearchChange,
@@ -30,30 +29,30 @@ const Table = ({
         className: 'w-44 text-right',
         formatter: (noActions, data) => {
             return (
-                <div className="flex justify-end">
+                <div className="flex justify-end gap-2.5">
                     {actions && actions(data)}
                     {onView && (
-                        <button className="btn btn-outline-success btn-sm focus:shadow-none me-2"
+                        <button className="btn btn-outline-success btn-sm focus:shadow-none"
                                 title="View" onClick={() => onView(data)}>
                             <FaEye/>
                         </button>
                     )}
                     {data.disableEdit === 1 && !onView && data.disableDelete === 1 && !actions && '-'}
                     {onEdit && (data?.disableEdit !== 1) && (
-                        <button className="btn btn-outline-primary btn-sm focus:shadow-none me-2"
+                        <button className="border border-indigo-500 text-indigo-500 p-2 rounded hover:bg-indigo-500 hover:text-white focus:shadow-none"
                                 title="Edit" onClick={() => onEdit(data)}>
-                            <FaPencilAlt/>
+                            <FaPencilAlt size={12}/>
                         </button>
                     )}
                     {onDelete && (data?.disableDelete !== 1) && (
-                        <button className="btn btn-outline-danger btn-sm focus:shadow-none me-2"
+                        <button className="border border-red-500 text-red-500 p-2 rounded hover:bg-red-500 hover:text-white focus:shadow-none"
                                 title="Delete" onClick={async () => {
                             await useActionConfirm(
                                 onDelete,
-                                {_id: data._id},
-                                onReload, 'Are you sure you want to delete this item?', 'Yes, Delete', i18n.t)
+                                {uid: data.uid},
+                                onReload, 'Are you sure you want to delete this item?', 'Yes, Delete')
                         }}>
-                            <FaTrashAlt/>
+                            <FaTrashAlt size={12}/>
                         </button>
                     )}
                 </div>

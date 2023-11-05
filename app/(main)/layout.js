@@ -40,7 +40,7 @@ const Layout = ({children}) => {
                     <Sidebar title="AccountA" menu={menu}/>
                     <Header title="AccountA"/>
                     <div className="content">
-                        <div className="p-6">
+                        <div className="p-4">
                             {children}
                         </div>
                     </div>
@@ -63,12 +63,12 @@ const menu = [
         icon: <FaHome/>
     },
     {
-        label: "Items",
+        label: "Products",
         icon: <FaBoxArchive/>,
         child: [
             {
-                label: "Items",
-                href: "/items",
+                label: "Products",
+                href: "/products",
             },
             {
                 label: "Categories",
@@ -111,6 +111,10 @@ const menu = [
             {
                 label: "Accounts",
                 href: "/accounts",
+            },
+            {
+                label: "Currencies",
+                href: "/currencies",
             },
             {
                 label: "Transactions",
