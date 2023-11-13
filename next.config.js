@@ -3,6 +3,6 @@ module.exports = {
         backend_url:
             process.env.NODE_ENV === 'production' ?
                 'https://accounta-backend.vercel.app/' :
-                'http://localhost:4500/'
+                'http://192.168.0.7:4500/'
     }
 }

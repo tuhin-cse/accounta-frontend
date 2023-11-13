@@ -35,3 +35,16 @@ export const fetchProduct = data => get('/product/:uid', data)
 export const postProduct = data => post('/product', data)
 export const patchProduct = data => patch('/product/:uid', data)
 export const delProduct = data => del('/product/:uid', data)
+
+
+export const fetchCustomers = data => get('/customer/list', data)
+export const fetchCustomer = data => get('/customer/:uid', data)
+export const postCustomer = data => post('/customer', data)
+export const patchCustomer = data => patch('/customer/:uid', data)
+export const delCustomer = data => del('/customer/:uid', data)
+
+export const fetchVendors = data => get('/vendor/list', data)
+export const fetchVendor = data => get('/vendor/:uid', data)
+export const postVendor = data => post('/vendor', data)
+export const patchVendor = data => patch('/vendor/:uid', data)
+export const delVendor = data => del('/vendor/:uid', data)

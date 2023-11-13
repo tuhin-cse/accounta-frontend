@@ -15,7 +15,7 @@ body {
 
   .menu {
     li {
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
 
     @apply py-8;
@@ -46,10 +46,20 @@ body {
         @apply py-1.5 text-sm;
         padding-left: 54px;
       }
-
       &.active {
         @apply max-h-[500px];
       }
+      li:first-child {
+        .nav-link {
+          @apply pt-2.5;
+        }
+      }
+        li:last-child {
+            .nav-link {
+            @apply pb-1;
+            }
+        }
+
     }
   }
 
