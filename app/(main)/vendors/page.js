@@ -1,14 +1,7 @@
 "use client"
 
 import {useAction, useFetch} from "../../helpers/hooks";
-import {
-    delCurrency,
-    delCustomer, delVendor,
-    fetchCustomers, fetchVendors,
-    patchCustomer,
-    patchVendor,
-    postCustomer, postVendor
-} from "../../helpers/backend";
+import {delVendor, fetchVendors, patchVendor, postVendor} from "../../helpers/backend";
 import PageTitle from "../../components/common/title";
 import Table from "../../components/common/table";
 import Button from "../../components/common/button";
@@ -21,6 +14,7 @@ const Vendors = () => {
     const [open, setOpen] = useState(false)
     const [data, getData, {loading}] = useFetch(fetchVendors)
     const columns = [
+        {text: "Business Name", dataField: "business"},
         {text: "Name", dataField: "name"},
         {text: "Email", dataField: "email"},
         {text: "Phone", dataField: "phone"},
@@ -30,7 +24,7 @@ const Vendors = () => {
 
     return (
         <>
-            <PageTitle title="Customers"/>
+            <PageTitle title="Vendors"/>
             <Table
                 columns={columns}
                 data={data}
@@ -57,7 +51,7 @@ const Vendors = () => {
             <Modal
                 open={open}
                 onCancel={() => setOpen(false)}
-                title="Customer Details"
+                title="Vendor Details"
                 footer={null}>
                 <Form
                     form={form}

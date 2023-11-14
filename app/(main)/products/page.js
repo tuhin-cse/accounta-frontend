@@ -1,14 +1,7 @@
 "use client"
 
 import {useAction, useFetch} from "../../helpers/hooks";
-import {
-    delCategory, delProduct,
-    fetchCategories,
-    fetchCategoryElements,
-    fetchProducts,
-    patchCategory, patchProduct,
-    postCategory, postProduct
-} from "../../helpers/backend";
+import {delProduct, fetchCategoryElements, fetchProducts, patchProduct, postProduct} from "../../helpers/backend";
 import PageTitle from "../../components/common/title";
 import Table from "../../components/common/table";
 import Button from "../../components/common/button";

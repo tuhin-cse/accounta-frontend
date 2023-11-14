@@ -46,19 +46,22 @@ body {
         @apply py-1.5 text-sm;
         padding-left: 54px;
       }
+
       &.active {
         @apply max-h-[500px];
       }
+
       li:first-child {
         .nav-link {
           @apply pt-2.5;
         }
       }
-        li:last-child {
-            .nav-link {
-            @apply pb-1;
-            }
+
+      li:last-child {
+        .nav-link {
+          @apply pb-1;
         }
+      }
 
     }
   }
@@ -138,6 +141,12 @@ body {
   }
 }
 
+.ant-picker {
+  @apply w-full rounded-md outline-0 shadow-none border-gray-300 focus:border-indigo-500 hover:border-gray-300 #{!important};
+  min-height: 40px;
+}
+
+
 .ant-select-arrow {
   @apply mt-2;
 }
@@ -148,4 +157,8 @@ body {
 
 .ant-modal-content {
   @apply rounded;
+}
+
+.ant-modal-header {
+  @apply text-gray-700 mb-4 #{!important};
 }

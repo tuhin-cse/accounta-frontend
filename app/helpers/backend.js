@@ -37,11 +37,26 @@ export const patchProduct = data => patch('/product/:uid', data)
 export const delProduct = data => del('/product/:uid', data)
 
 
+export const fetchSales = data => get('/sale/list', data)
+export const fetchSaleElements = data => get('/sale/elements', data)
+export const fetchSale = data => get('/sale/:uid', data)
+export const postSale = data => post('/sale', data)
+export const patchSale = data => patch('/sale/:uid', data)
+export const delSale = data => del('/sale/:uid', data)
+
+
 export const fetchCustomers = data => get('/customer/list', data)
 export const fetchCustomer = data => get('/customer/:uid', data)
 export const postCustomer = data => post('/customer', data)
 export const patchCustomer = data => patch('/customer/:uid', data)
 export const delCustomer = data => del('/customer/:uid', data)
+
+export const fetchPurchases = data => get('/purchase/list', data)
+export const fetchPurchaseElements = data => get('/purchase/elements', data)
+export const fetchPurchase = data => get('/purchase/:uid', data)
+export const postPurchase = data => post('/purchase', data)
+export const patchPurchase = data => patch('/purchase/:uid', data)
+export const delPurchase = data => del('/purchase/:uid', data)
 
 export const fetchVendors = data => get('/vendor/list', data)
 export const fetchVendor = data => get('/vendor/:uid', data)
