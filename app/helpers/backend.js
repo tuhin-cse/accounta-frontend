@@ -26,6 +26,8 @@ export const fetchCategories = data => get('/category/list', data)
 export const fetchCategory = data => get('/category/:uid', data)
 export const fetchCategoryElements = data => get('/category/elements', data)
 export const postCategory = data => post('/category', data)
+
+export const postCategoryGenerate = data => post('/category/generate', data)
 export const patchCategory = data => patch('/category/:uid', data)
 export const delCategory = data => del('/category/:uid', data)
 

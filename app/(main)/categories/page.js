@@ -1,7 +1,14 @@
 "use client"
 
 import {useAction, useFetch} from "../../helpers/hooks";
-import {delCategory, fetchCategories, fetchCategoryElements, patchCategory, postCategory} from "../../helpers/backend";
+import {
+    delCategory,
+    fetchCategories,
+    fetchCategoryElements,
+    patchCategory,
+    postCategory,
+    postCategoryGenerate
+} from "../../helpers/backend";
 import PageTitle from "../../components/common/title";
 import Table from "../../components/common/table";
 import Button from "../../components/common/button";
@@ -13,6 +20,7 @@ import FormSelect from "../../components/form/select";
 const Categories = () => {
     const [form] = Form.useForm()
     const [open, setOpen] = useState(false)
+    const [open2, setOpen2] = useState(false)
     const [data, getData, {loading}] = useFetch(fetchCategories)
     const [elements, getElements] = useFetch(fetchCategoryElements, {}, false)
     const columns = [
@@ -45,13 +53,20 @@ const Categories = () => {
                 loading={loading}
                 onReload={getData}
                 action={(
-                    <Button
-                        onClick={() => {
-                            getElements()
-                            form.resetFields()
-                            setOpen(true)
-                        }}
-                    >Add New</Button>
+                   <div className="flex gap-2">
+                       <Button
+                           onClick={() => {
+                               setOpen2(true)
+                           }}
+                       >Generate</Button>
+                       <Button
+                           onClick={() => {
+                               getElements()
+                               form.resetFields()
+                               setOpen(true)
+                           }}
+                       >Add New</Button>
+                   </div>
                 )}
                 onEdit={values => {
                     form.resetFields()
@@ -84,6 +99,28 @@ const Categories = () => {
                     <HiddenInput name="uid"/>
                     <FormInput label="Name" name="name" required/>
                     <FormSelect label="Parent" name="parent" options={options}/>
+                    <Button className="mt-2.5">Submit</Button>
+                </Form>
+
+            </Modal>
+
+
+            <Modal
+                open={open2}
+                onCancel={() => setOpen2(false)}
+                title="Generate Categories"
+                footer={null}>
+                <Form
+                    form={form}
+                    layout="vertical"
+                    onFinish={(values) => {
+                        values.parent = values.parent || undefined
+                        return useAction(postCategoryGenerate, values, () => {
+                            setOpen2(false)
+                            getData()
+                        })
+                    }}>
+                    <FormInput label="Your Business Type" name="type" required/>
                     <Button className="mt-2.5">Submit</Button>
                 </Form>
 
